@@ -62,9 +62,13 @@ function SellItems()
             description = 'Sell for a random price between ' .. item.minPrice .. ' and ' .. item.maxPrice,
             icon = itemImage,
             onSelect = function()
-                lib.callback('qb-pawnshop:server:sellPawnItems', false, function()
-                    -- Callback logic if needed
-                end, item.name, 1)
+                lib.callback('qb-pawnshop:server:sellAllPawnItems', false, function(success)
+                    if success then
+                        lib.notify({title = 'Pawn Shop', description = 'Items sold successfully!', type = 'success'})
+                    else
+                        lib.notify({title = 'Pawn Shop', description = 'Error selling items', type = 'error'})
+                    end
+                end, sellableItems)
             end
         })
     end
